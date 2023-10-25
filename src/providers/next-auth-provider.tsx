@@ -8,5 +8,5 @@ export default function NextAuthProvider({
 }: {
   children: ReactNode;
 }) {
-  return <SessionProvider children={undefined}>{children}</SessionProvider>;
+  return <SessionProvider>{children}</SessionProvider>;
 }
