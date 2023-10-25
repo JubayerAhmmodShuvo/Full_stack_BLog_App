@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { menuItems } from "@/utils";
@@ -17,6 +16,7 @@ export default function Header() {
   const { setSearchQuery, setSearchResults } = useContext(GlobalContext);
   const router = useRouter();
   const pathName = usePathname();
+  const [loginOptionsOpen, setLoginOptionsOpen] = useState(false);
 
   function handleStickyNavbar() {
     if (window.scrollY >= 80) setSticky(true);
@@ -25,6 +25,10 @@ export default function Header() {
 
   function handleNavbarToggle() {
     setNavbarOpen(!navbarOpen);
+  }
+
+  function handleLoginOptionsToggle() {
+    setLoginOptionsOpen(!loginOptionsOpen);
   }
 
   useEffect(() => {
@@ -110,18 +114,31 @@ export default function Header() {
                 </nav>
               </div>
               <div className="flex gap-4 items-center justify-end pr-16 lg:pr-0">
-                {session !== null ? (
-                  <Button
-                    onClick={() => router.push("/create")}
-                    text="Create"
-                  />
-                ) : null}
-                <Button
-                  onClick={
-                    session !== null ? () => signOut() : () => signIn("github")
-                  }
-                  text={session !== null ? "Logout" : "Login"}
-                />
+                {session ? (
+                  <>
+                    <Button
+                      onClick={() => router.push("/create")}
+                      text="Create Blog"
+                    />
+                    <Button onClick={() => signOut()} text="Logout" />
+                  </>
+                ) : (
+                  <>
+                    <Button onClick={handleLoginOptionsToggle} text="Login" />
+                    {loginOptionsOpen && (
+                      <div className="flex gap-2">
+                        <Button
+                          onClick={() => signIn("github")}
+                          text="GitHub"
+                        />
+                        <Button
+                          onClick={() => signIn("google")}
+                          text="Google"
+                        />
+                      </div>
+                    )}
+                  </>
+                )}
                 <div className="flex gap-3 items-center">
                   <ThemeToggler />
                 </div>
