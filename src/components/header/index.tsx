@@ -48,8 +48,7 @@ export default function Header() {
           sticky
             ? "!fixed !z-[9999] !bg-white !bg-opacity-80 shadow-sticky backdrop:blur-sm !transition dark:!bg-primary dark:!bg-opacity-20"
             : "absolute"
-        }
-        `}
+        }`}
       >
         <div className="container">
           <div className="relative -mx-4 flex items-center justify-between">
@@ -57,63 +56,26 @@ export default function Header() {
               <Link
                 href={"/"}
                 className={`text-[30px] font-extrabold cursor-pointer block w-full
-                    ${sticky ? "py-5 lg:py-2" : "py-8"}
-                    `}
+                  ${sticky ? "py-5 lg:py-2" : "py-8"}
+                `}
               >
-                NextBlog
+                BlogApp
               </Link>
             </div>
-            <div className="flex w-full items-center justify-between px-4">
-              <div>
-                <button
-                  onClick={handleNavbarToggle}
-                  id="navbarToggler"
-                  aria-label="Mobile Menu"
-                  className="absolute right-4 top-1/2 block translate-y-[-50%] rounded-lg px-3 py-[6px] ring-primary focus:ring-2 lg:hidden"
-                >
-                  <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white
-                        ${navbarOpen ? "top-[7px] rotate-45" : ""}
-                        `}
-                  />
-                  <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white
-                        ${navbarOpen ? "opacity-0" : ""}
-                        `}
-                  />
-                  <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white
-                        ${navbarOpen ? "top-[-8px] -rotate-45" : ""}
-                        `}
-                  />
-                </button>
-                <nav
-                  id="navbarCollapse"
-                  className={`absolute right-0 z-30 w-[250px] rounded border-[.5px] bg-white border-body-color/50 py-4 
-                px-6 duration-300 dark:border-body-color/20 dark:bg-dark lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100
-
-                ${
-                  navbarOpen
-                    ? "visible top-full opacity-100"
-                    : "invisible top-[120%] opacity-0"
-                }
-                `}
-                >
-                  <ul className="block lg:flex lg:space-x-12">
-                    {menuItems.map((item: MenuItem) => (
-                      <li key={item.id} className="group relative">
-                        <Link
-                          href={item.path}
-                          className={`flex py-2 text-base text-dark group-hover:opacity-70 dark:text-white lg:mr-0 lg:inline-flex lg:py-6 lg:px-0`}
-                        >
-                          {item.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              </div>
-              <div className="flex gap-4 items-center justify-end pr-16 lg:pr-0">
+            <div className="hidden lg:flex w-full items-center justify-between px-4">
+              <ul className="flex space-x-12">
+                {menuItems.map((item: MenuItem) => (
+                  <li key={item.id} className="group relative">
+                    <Link
+                      href={item.path}
+                      className={`flex py-2 text-base text-dark group-hover:opacity-70 dark:text-white lg:mr-0 lg:inline-flex lg:py-6 lg:px-0`}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex gap-4 items-center justify-end">
                 {session ? (
                   <>
                     <Button
@@ -126,16 +88,20 @@ export default function Header() {
                   <>
                     <Button onClick={handleLoginOptionsToggle} text="Login" />
                     {loginOptionsOpen && (
-                      <div className="flex gap-2">
-                        <Button
-                          onClick={() => signIn("github")}
-                          text="GitHub"
-                        />
-                        <Button
-                          onClick={() => signIn("google")}
-                          text="Google"
-                        />
-                      </div>
+                      <ul className="flex gap-2">
+                        <li>
+                          <Button
+                            onClick={() => signIn("github")}
+                            text="GitHub"
+                          />
+                        </li>
+                        <li>
+                          <Button
+                            onClick={() => signIn("google")}
+                            text="Google"
+                          />
+                        </li>
+                      </ul>
                     )}
                   </>
                 )}
@@ -144,7 +110,83 @@ export default function Header() {
                 </div>
               </div>
             </div>
+            <div className="flex w-full items-center justify-between px-4 lg:hidden">
+              <button
+                onClick={handleNavbarToggle}
+                id="navbarToggler"
+                aria-label="Mobile Menu"
+                className="absolute right-4 top-1/2 block translate-y-[-50%] rounded-lg px-3 py-[6px] ring-primary focus:ring-2"
+              >
+                <span
+                  className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white
+                    ${navbarOpen ? "top-[7px] rotate-45" : ""}
+                  `}
+                />
+                <span
+                  className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white
+                    ${navbarOpen ? "opacity-0" : ""}
+                  `}
+                />
+                <span
+                  className={`relative my-1.5 block h-0.5 w-[30px] bg-black transition-all duration-300 dark:bg-white
+                    ${navbarOpen ? "top-[-8px] -rotate-45" : ""}
+                  `}
+                />
+              </button>
+            </div>
           </div>
+
+          <nav
+            id="navbarCollapse"
+            className={`absolute right-0 z-30 w-full rounded border-[.5px] bg-white border-body-color/50 py-4 px-6 duration-300 dark:border-body-color/20 dark:bg-dark lg:hidden
+              ${navbarOpen ? "top-full opacity-100" : "top-[120%] opacity-0"}
+            `}
+          >
+            <div className="flex gap-3 items-end justify-end">
+              <ThemeToggler />
+            </div>
+            <ul className="block">
+              {menuItems.map((item: MenuItem) => (
+                <li key={item.id} className="group relative">
+                  <Link
+                    href={item.path}
+                    className={`block py-2 text-base text-dark group-hover:opacity-70 dark:text-white`}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+              {session ? (
+                <li>
+                  <Button
+                    onClick={() => router.push("/create")}
+                    text="Create Blog"
+                  />
+                  <Button onClick={() => signOut()} text="Logout" />
+                </li>
+              ) : (
+                <li>
+                  <Button onClick={handleLoginOptionsToggle} text="Login" />
+                  {loginOptionsOpen && (
+                    <ul className="flex gap-2">
+                      <li className=" py-4">
+                        <Button
+                          onClick={() => signIn("github")}
+                          text="GitHub"
+                        />
+                      </li>
+                      <li className=" py-4">
+                        <Button
+                          onClick={() => signIn("google")}
+                          text="Google"
+                        />
+                      </li>
+                    </ul>
+                  )}
+                </li>
+              )}
+            </ul>
+          </nav>
         </div>
       </header>
     </div>
