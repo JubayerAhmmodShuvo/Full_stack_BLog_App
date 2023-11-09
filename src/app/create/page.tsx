@@ -51,7 +51,7 @@ export default function Create() {
   const { data: session } = useSession();
   const router = useRouter();
 
-  console.log(session, "session");
+  
 
   async function handleBlogImageChange(
     event: React.ChangeEvent<HTMLInputElement>
@@ -98,7 +98,7 @@ export default function Create() {
     }
   }
 
-  console.log(formData, "formData");
+  
 
   return (
     <section className="overflow-hidden py-16 md:py-20 lg:py-28">
@@ -134,7 +134,7 @@ export default function Create() {
 
                   <div className="-mx-4 flex flex-wrap">
                     {formControls.map((control) => (
-                      <div className="w-full px-4">
+                      <div key={control?.id} className="w-full px-4">
                         <label className="mb-3 block text-sm font-medium text-dark dark:text-white">
                           {control.label}
                         </label>
@@ -190,6 +190,7 @@ export default function Create() {
                             </option>
                             {control.options.map((optionItem) => (
                               <option
+                                key={optionItem?.value}
                                 id={optionItem.value}
                                 value={optionItem.value}
                               >
