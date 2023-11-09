@@ -84,7 +84,7 @@ export default function CategoryList({ list }: { list: Blog[] }) {
                     relatedBlogs.map((item) => (
                       <li
                         className="mb-6 border-b border-body-color border-opacity-10 pb-6 dark:border-white dark:border-opacity-10"
-                        key={item.id}
+                        key={item?.id}
                       >
                         <div className="flex items-center lg:block xl:flex">
                           <div className="mr-5 lg:mb-3 xl:mb-0">
@@ -98,7 +98,7 @@ export default function CategoryList({ list }: { list: Blog[] }) {
                                 href={"/"}
                                 className="mb-[8px] block text-base font-medium text-black dark:text-white hover:text-primary dark:hover:text-primary"
                               >
-                                {item.title}
+                                {item?.title}
                               </Link>
                             </h5>
                           </div>

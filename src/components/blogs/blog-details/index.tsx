@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function BlogDetailsHome({ blogData }: { blogData: Blog }) {
-  console.log(blogData, "blogData");
+  
 
   const [comment, setComment] = useState<string>("");
   const { data: session } = useSession();
@@ -33,7 +33,7 @@ export default function BlogDetailsHome({ blogData }: { blogData: Blog }) {
 
     const data = await response.json();
 
-    console.log(data, "comment123");
+    
 
     if (data && data.success) {
       setComment("");
