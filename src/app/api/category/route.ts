@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = new URL(request?.url);
     const extractCategoryID = searchParams.get("categoryID");
 
-    const getBlogPostListBasedOnCurrentCategoryID = await prisma.post.findMany({
+    const getBlogPostListBasedOnCurrentCategoryID = await prisma?.post?.findMany({
       where: {
         category: extractCategoryID || "",
       },
